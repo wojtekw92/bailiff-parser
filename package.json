@@ -1,0 +1,29 @@
+{
+  "name": "bauliff-parser",
+  "version": "1.0.0",
+  "description": "small parser for polish bailiff webpage(licytacje.komornik.pl)",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.22.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wojtekw92/bailiff-parser.git"
+  },
+  "keywords": [
+    "bailiff",
+    "parser",
+    "komornik",
+    "licytacje"
+  ],
+  "author": "Wojciech Wozniak <wwozniak92@gmail.com> (http://github.com/wojtekw92)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wojtekw92/bailiff-parser/issues"
+  },
+  "homepage": "https://github.com/wojtekw92/bailiff-parser#readme"
+}
