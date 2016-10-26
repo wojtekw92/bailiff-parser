@@ -53,28 +53,23 @@ var getCategoriesInternal = function(data, cb) {
   cb(categories);
 }
 
-var tmp = function (data) {
-  console.log(data);
-}
-//('[href*="/Notice/Filter/"]');
-var getCategories = function(callback) {
+//Public API
+exports.getCategories = function(callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/',
             }, returnHtml(getCategoriesInternal, callback)).end();
 }
 
-var getPageCount = function(category, callback) {
+exports.getPageCount = function(category, callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/Notice/Filter/'+category,
             }, returnHtml(getPageCountInternal, callback)).end();
 }
-var getOffers = function(category, page, callback) {
+exports.getOffers = function(category, page, callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/Notice/Filter/' + category + '?page=' + page,
             }, returnHtml(parsePage, callback)).end();
 }
-
-getCategories(tmp);
