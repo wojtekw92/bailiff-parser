@@ -1,6 +1,6 @@
 {
-  "name": "bauliff-parser",
-  "version": "1.0.0",
+  "name": "bailiff-parser",
+  "version": "0.1.0",
   "description": "small parser for polish bailiff webpage(licytacje.komornik.pl)",
   "main": "index.js",
   "dependencies": {
