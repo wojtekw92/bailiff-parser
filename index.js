@@ -27,7 +27,7 @@ var parsePage = function(data, cb) {
     tmpObj.city = $("<span>"+row.eq(4).html().split("<br>")[0].replace(/^\s+|\s+$/g, "")+"</span>").text();
     tmpObj.dist = $("<span>"+row.eq(4).html().split("<br>")[1].replace(/^\s*\(|\)\s*$/g, "")+"</span>").text();
     tmpObj.price = $("<span>"+row.eq(5).html().split("<br>")[0].replace(/^\s+|\s+$/g, "")+"</span>").text();
-    tmpObj.offerId = row.eq(6).children('a').attr("href").split("/")[3];
+    tmpObj.offerId = row.eq(7).children('a').attr("href").split("/")[3];
     jsonData.push(tmpObj);
   });
   cb(jsonData);
@@ -72,4 +72,22 @@ exports.getOffers = function(category, page, callback) {
               host: 'licytacje.komornik.pl',
               path: '/Notice/Filter/' + category + '?page=' + page,
             }, returnHtml(parsePage, callback)).end();
+}
+
+exports.getCategoriesAsync = function() {
+    return new Promise((resolve, reject) => {
+      exports.getCategories(resolve);
+    });
+};
+
+exports.getPageCountAsync = function(category) {
+  return new Promise((resolve, reject) => {
+    exports.getPageCount(category, resolve);
+  });
+}
+
+exports.getOffersAsync = function(category, page) {
+  return new Promise((resolve, reject) => {
+    exports.getOffers(category, page, resolve);
+  });
 }
