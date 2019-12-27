@@ -54,40 +54,50 @@ var getCategoriesInternal = function(data, cb) {
 }
 
 //Public API
-exports.getCategories = function(callback) {
+exports.getCategoriesSync = function(callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/',
             }, returnHtml(getCategoriesInternal, callback)).end();
 }
 
-exports.getPageCount = function(category, callback) {
+exports.getPageCountSync = function(category, callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/Notice/Filter/'+category,
             }, returnHtml(getPageCountInternal, callback)).end();
 }
-exports.getOffers = function(category, page, callback) {
+exports.getOffersSync = function(category, page, callback) {
   http.request({
               host: 'licytacje.komornik.pl',
               path: '/Notice/Filter/' + category + '?page=' + page,
             }, returnHtml(parsePage, callback)).end();
 }
 
-exports.getCategoriesAsync = function() {
+exports.getCategories = function() {
     return new Promise((resolve, reject) => {
-      exports.getCategories(resolve);
+      exports.getCategoriesSync(resolve);
     });
 };
 
-exports.getPageCountAsync = function(category) {
+exports.getPageCount = function(category) {
   return new Promise((resolve, reject) => {
-    exports.getPageCount(category, resolve);
+    exports.getPageCountSync(category, resolve);
   });
 }
 
-exports.getOffersAsync = function(category, page) {
+exports.getOffers = function(category, page) {
   return new Promise((resolve, reject) => {
-    exports.getOffers(category, page, resolve);
+    exports.getOffersSync(category, page, resolve);
   });
 }
+
+exports.getAllOffers = async function(category) {
+  const pageCount = await exports.getPageCount(category);
+  let allOffers = [];
+  for(let i=1;i<=pageCount; i++) {
+      let offers = await exports.getOffers(category, i);
+      allOffers = allOffers.concat(offers);
+  }
+  return allOffers;
+};
